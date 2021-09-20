@@ -22,14 +22,15 @@ router.get("/api/workouts", (req, res) => {
 
 //add exercise
 router.put("/api/workouts/:id", (req, res) => {
-  db.Workout.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      $inc: { totalDuration: req.body.duration },
-      $push: { exercises: req.body },
-    },
-    { new: true }
-  )
+  db.workout
+    .findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $inc: { totalDuration: req.body.duration },
+        $push: { exercises: req.body },
+      },
+      { new: true }
+    )
     .then((dbWorkout) => {
       res.json(dbWorkout);
     })
@@ -40,7 +41,8 @@ router.put("/api/workouts/:id", (req, res) => {
 
 //create workout
 router.post("/api/workouts", ({ body }, res) => {
-  db.Workout.create(body)
+  db.workout
+    .create(body)
     .then((dbWorkout) => {
       res.json(dbWorkout);
     })
